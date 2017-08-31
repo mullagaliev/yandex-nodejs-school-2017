@@ -63,12 +63,12 @@ let MyForm = {
 			if( $input === null ){
 				continue;
 			}
-
+			//@TODO Add other method for hilight
 			$input.classList.remove('error');
 
 			let chkValidInput = this._validateInput($input);
 			result.isValid &= chkValidInput;
-			
+
 			if( !chkValidInput ){
 				$input.classList.add('error');
 				result.errorFields.push(key);
@@ -100,5 +100,4 @@ let MyForm = {
 
 		return undefined;
 	}
-
 }
