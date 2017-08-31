@@ -4,11 +4,17 @@ body{
 *{
 	box-sizing: border-box;
 }
+
 input,button{
 	border-radius: 5px;
 	border: 1px solid grey;
 	padding: 5px;
 }
+
+.error{
+	border: 1px solid red;
+}
+
 .b-form{
 	background-color: white;
 	width: 500px;
