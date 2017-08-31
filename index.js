@@ -101,7 +101,7 @@ let MyForm = {
 				}
 			}
 		};
-		request.open("GET", action, true);
+		request.open("POST", action, true);
 		request.send(formData);
 	},
 	/*
