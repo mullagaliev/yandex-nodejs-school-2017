@@ -1,8 +1,9 @@
 "use strict";
 
-console.log('start');
-
 let MyForm = {
+	/*
+		private
+	*/
 	_$form : undefined,
 	$form : function(){
 		if(this._$form === undefined){
@@ -13,7 +14,7 @@ let MyForm = {
 	_inputsNameList: ["fio", "phone", "email"],
 	_validateInput: function(input){
 		function validateFio(value){
-			return value && value.match(/\w+/g).length === 3;
+			return value && value.match(/[а-я\w]+/g).length === 3;
 		}
 		/**
 		 * Function for validate email 
@@ -52,7 +53,60 @@ let MyForm = {
 				return true;
 		}
 	},
+	_enableSend : function(mod){
+		let submitButton = document.getElementById("submitButton");
+		
+		if(mod){
+			submitButton.removeAttribute("disabled");
+		}
+		else{
+			submitButton.setAttribute("disabled", "disabled");
+		}
+	},
+	_updateStatus : function($container, text, className){
+		$container.classList.add(className);
+		$container.textContent = text;
+	},
+	_requestForm : function(action, form, formData, $resultContainer){
+		$resultContainer.classList.remove("success", "error", "progress");
+		form._enableSend(false);
 
+		let request = new XMLHttpRequest();
+		request.onreadystatechange = function(){
+			if (this.readyState === 4 && this.status !== 200) {
+				form._enableSend(true);
+			}
+			if (this.readyState === 4 && this.status === 200) {
+				let json = JSON.parse(this.responseText);
+				
+				switch(json.status) {
+					case "success":
+						form._updateStatus($resultContainer, "Success", "success");
+						form._enableSend(true);
+						break;
+					case "error":
+						let reason = json.reason ? json.reason : "empty";
+						form._updateStatus($resultContainer, reason, "error");
+						form._enableSend(true);
+						break;
+					case "progress":
+						form._updateStatus($resultContainer, "", "progress");
+						let timeout = json.timeout ? Number(json.timeout) : 1000;
+						setTimeout(form.submit.bind(form), timeout ); 
+						break;
+					default: 
+						form._updateStatus($resultContainer, "", "");
+						form._enableSend(true);
+						break;
+				}
+			}
+		};
+		request.open("GET", action, true);
+		request.send(formData);
+	},
+	/*
+		public
+	*/
 	validate : function(){
 		let result = {
 			isValid : true,
@@ -99,7 +153,17 @@ let MyForm = {
 		}
 	},
 	submit : function(){
-
-		return undefined;
+		if( !(this.validate().isValid) ){
+			return undefined;
+		}
+		let action = this.$form().action;
+		let formData = new FormData(this.$form());
+		let $resultContainer = document.getElementById('resultContainer');
+		this._requestForm(action, this,  formData, $resultContainer);
 	}
 }
+
+document.getElementById('submitButton').onclick = function(){
+	MyForm.submit();
+};
+

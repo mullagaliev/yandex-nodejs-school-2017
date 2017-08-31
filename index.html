@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Yandex school 2017 | Mullagaliev Andrew </title>
+		<meta charset="UTF-8">
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="css/style.css">
@@ -9,26 +10,26 @@
 	</head>
 	<body>
 		<section class="container">
-			<form id="myForm" class="b-form" action="">
-
+			<form id="myForm" class="b-form card" action="fake-server/success.json" >
+				<h1 class="b-form__title">MyForm</h1>
 				<div class="b-input-group">
-					<label class="b-input-group__label" for="fio"  >ФИО: </label>
-					<input class="b-input-group__input" type="text" name="fio">
+					<label class="b-input-group__label" for="fio" >ФИО: </label>
+					<input class="b-input-group__input" type="text" name="fio" value="Andrew A Mullagaliev">
 				</div>
 				
 				<div class="b-input-group">
 					<label class="b-input-group__label" for="email"  >Почта: </label>
-					<input class="b-input-group__input" type="email" name="email">
+					<input class="b-input-group__input" type="email" name="email" value="test@yandex.ru">
 				</div>
 				
 				<div class="b-input-group">
 					<label class="b-input-group__label" for="phone"  >Телефон: </label>
-					<input class="b-input-group__input" type="phone" name="phone">
+					<input class="b-input-group__input" type="phone" name="phone" value="+7(111)222-33-11">
 				</div>
 				
 				<div class="b-input-group b-input-group--actions">
-					<button class="b-form__reset b-input-group__btn"  type="reset" >Очистить</button>
-					<button class="b-form__submite b-input-group__btn" id="submitButton" type="submite" >Отправить</button>
+					<button class="b-form__reset b-input-group__btn"  type="reset" >По-умолчанию</button>
+					<button class="b-form__submit b-input-group__btn" id="submitButton" type="button" >Отправить</button>
 				</div>
 
 				<div id="resultContainer" class="b-form__result">
@@ -36,7 +37,7 @@
 				</div>
 			</form>
 		</section>
-		
+
 		<script type="text/javascript" src="index.js" defer></script>
 	</body>
 </html>
