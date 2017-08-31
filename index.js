@@ -1,3 +1,5 @@
+"use strict";
+
 console.log('start');
 
 let MyForm = {
@@ -11,7 +13,7 @@ let MyForm = {
 	_inputsNameList: ["fio", "phone", "email"],
 	_validateInput: function(input){
 		function validateFio(value){
-			return result = value && value.match(/\w+/g).length === 3;
+			return value && value.match(/\w+/g).length === 3;
 		}
 		/**
 		 * Function for validate email 
@@ -58,7 +60,7 @@ let MyForm = {
 		};
 		let data = this.getData();
 
-		for (key in data) {
+		for (let key in data) {
 			let $input = this.$form().querySelector("[name='" + key + "']");
 			if( $input === null ){
 				continue;
@@ -88,7 +90,7 @@ let MyForm = {
 		return result;
 	},
 	setData : function( data ){
-		for (key in data) {
+		for (let key in data) {
 			if( this._inputsNameList.indexOf(key) === -1 ){
 				continue;
 			}
